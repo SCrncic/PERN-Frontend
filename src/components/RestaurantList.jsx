@@ -15,6 +15,18 @@ function RestaurantList(props) {
         fetchData();
     }, [])
 
+    const handleDelete = async (uuid) => {
+        try {
+            const resp = await RestaurantFinder.delete(`/${uuid}`)
+            setRestaurants(restaurants.filter(restaurant => {
+                return restaurant.uuid !== uuid
+            }))
+            console.log(resp)
+        } catch (error) {
+            
+        }
+    }
+
   return (
     <table className="table table-dark table-striped table-hover">
         <thead>
@@ -36,7 +48,7 @@ function RestaurantList(props) {
                         <td>{'$'.repeat(restaurant.price_range)}</td>
                         <td>{restaurant.rating}</td>
                         <td><button className="btn btn-warning">Warning</button></td>
-                        <td><button className="btn btn-danger">Delete</button></td>
+                        <td><button onClick={() => handleDelete(restaurant.uuid)} className="btn btn-danger">Delete</button></td>
                     </tr>
                 )
             })}
