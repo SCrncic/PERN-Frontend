@@ -10,7 +10,9 @@ function RestaurantList(props) {
                 const response = await RestaurantFinder.get("/")
                 setRestaurants(response.data.restaurants)
             }
-            catch (err){}
+            catch (err){
+                console.log(err)
+            }
         }
         fetchData();
     }, [])
@@ -21,9 +23,8 @@ function RestaurantList(props) {
             setRestaurants(restaurants.filter(restaurant => {
                 return restaurant.uuid !== uuid
             }))
-            console.log(resp)
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
