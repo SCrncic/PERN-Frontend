@@ -19,7 +19,7 @@ function UpdateRestaurant() {
         fetchData();
     }, []);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         try {
         e.preventDefault()
         const update = await RestaurantFinder.patch(`/${uuid}`, {
@@ -27,7 +27,7 @@ function UpdateRestaurant() {
         });
         if(update.status === 200)
             nav('/');
-        else throw new Error(update)
+        else throw new Error(update.statusText)
         } catch (error) {
             console.log(error)
         }

@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
-import { RestaurantsContext } from '../context/RestaurantsContext'
+import { RestaurantContextType, RestaurantsContext } from '../context/RestaurantsProvider'
 
 const AddRestaurant = () => {
-    const {addRestaurant} = useContext(RestaurantsContext)
+    const {addRestaurant} = useContext(RestaurantsContext) as RestaurantContextType
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
     const [priceRange, setPriceRange] = useState('Price Range')
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try{
             const response = await RestaurantFinder.post('/', {
@@ -33,8 +33,8 @@ const AddRestaurant = () => {
                     <div className='col'>
                         <input value={location} onChange={e => setLocation(e.target.value)} type='text' className='form-control' placeholder='location'/>
                     </div>
-                    <div value={priceRange} onChange={e => setPriceRange(e.target.value)} className='col d-flex'>
-                        <select className='form-select'>
+                    <div className='col d-flex'>
+                        <select value={priceRange} onChange={e => setPriceRange(e.target.value)} className='form-select'>
                             <option value="Price Range">Price Range</option>
                             <option value="1">$</option>
                             <option value="2">$$</option>
@@ -42,7 +42,7 @@ const AddRestaurant = () => {
                             <option value="4">$$$$</option>
                             <option value="5">$$$$$</option>
                         </select>
-                        <button type='submit' onClick={handleSubmit} className='btn btn-primary'>Add</button>
+                        <button type='submit' onClick={(e) => handleSubmit(e)} className='btn btn-primary'>Add</button>
                     </div>
                 </div>
             </form>

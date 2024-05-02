@@ -1,10 +1,11 @@
 import React, {useContext, useEffect} from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
-import { RestaurantsContext } from '../context/RestaurantsContext'
 import { useNavigate } from 'react-router-dom'
+import { UUID } from 'crypto'
+import { RestaurantContextType, RestaurantType, RestaurantsContext } from '../context/RestaurantsProvider'
 
-function RestaurantList(props) {
-    const {restaurants, setRestaurants} = useContext(RestaurantsContext)
+function RestaurantList() {
+    const {restaurants, setRestaurants} = useContext(RestaurantsContext) as RestaurantContextType
     let nav = useNavigate();
     useEffect(() => {
         async function fetchData() {
@@ -19,7 +20,7 @@ function RestaurantList(props) {
         fetchData();
     }, [])
 
-    const handleDelete = async (uuid) => {
+    const handleDelete = async (uuid: UUID) => {
         try {
             const resp = await RestaurantFinder.delete(`/${uuid}`)
             setRestaurants(restaurants.filter(restaurant => {
@@ -30,7 +31,7 @@ function RestaurantList(props) {
         }
     }
     
-    const handleUpdate = (uuid) => {
+    const handleUpdate = (uuid: UUID) => {
         nav(`/restaurants/${uuid}/update`)
     }
 

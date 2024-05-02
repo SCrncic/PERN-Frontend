@@ -3,9 +3,9 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import UpdateRestaurant from './routes/UpdatePage'
 import Home from './routes/Home'
 import RestaurantDetail from './routes/RestaurantDetail'
-import { RestaurantsContextProvider } from './context/RestaurantsContext'
+import { RestaurantsContextProvider } from './context/RestaurantsProvider'
 
-const App = () => {
+const App = (props: any) => {
     return (
         <RestaurantsContextProvider>
             <div>
